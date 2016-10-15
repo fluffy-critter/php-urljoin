@@ -1,3 +1,14 @@
+<?php
+
+/*
+
+Here, have some unit tests.
+
+Author: fluffy, http://beesbuzz.biz/
+
+ */
+
+?><!DOCTYPE html>
 <html><head><title>tests</title><style>
 .pass { background: #7f7; }
 .fail { background: #f7f; }
