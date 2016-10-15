@@ -42,7 +42,7 @@ function urljoin($base, $rel) {
 		$ret .= $merged['scheme'] . ':';
 	}
 
-	if (isset($merged['host'])) {
+	if (isset($merged['scheme']) || isset($merged['host'])) {
 		$ret .= '//';
 	}
 

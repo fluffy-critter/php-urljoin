@@ -36,6 +36,8 @@ test("https://beesbuzz.biz:8000/foo/bar", "//sockpuppet.us/test/url", "https://s
 test("https://beesbuzz.biz:8000/foo/bar", "/test/url", "https://beesbuzz.biz:8000/test/url");
 test("http://beesbuzz.biz/foo/?qwer=poiu", "bar", "http://beesbuzz.biz/foo/bar");
 test("http://beesbuzz.biz/foo/", "bar?qwer=poiu", "http://beesbuzz.biz/foo/bar?qwer=poiu");
+test("file:///path/to/file", "other-file", "file:///path/to/other-file");
+test("/path/to/file", "other-file", "/path/to/other-file");
 
 ?>
 </body></html>
