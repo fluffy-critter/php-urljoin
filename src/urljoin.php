@@ -18,9 +18,14 @@ function urljoin($base, $rel) {
 	$path = [];
 	$prevPart = '';
 	foreach ($pathParts as $part) {
-		if ($part == '..') {
-			// Trim out the parent directory
-			array_pop($path);
+		if ($part == '..' && count($path) > 0) {
+			// Cancel out the parent directory (if there's a parent to cancel)
+			$parent = array_pop($path);
+			// But if it was also a parent directory, leave it in
+			if ($parent == '..') {
+				array_push($path, $parent);
+				array_push($path, $part);
+			}
 		} else if ($prevPart != '' || ($part != '.' && $part != '')) {
 			// Don't include empty or current-directory components
 			if ($part == '.') {

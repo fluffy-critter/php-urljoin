@@ -21,7 +21,7 @@ function test($base, $url, $expected) {
 test("http://beesbuzz.biz/foo/bar", "test.jpg", "http://beesbuzz.biz/foo/test.jpg");
 test("http://beesbuzz.biz/foo/bar", "/test.jpg", "http://beesbuzz.biz/test.jpg");
 test("http://beesbuzz.biz/foo/bar/baz", "../test.jpg", "http://beesbuzz.biz/foo/test.jpg");
-test("http://beesbuzz.biz/foo/bar/baz/quux", "../../../../../test.jpg", "http://beesbuzz.biz/test.jpg");
+test("http://beesbuzz.biz/foo/bar/baz/quux", "../../../../../test.jpg", "http://beesbuzz.biz/../../test.jpg");
 test("http://beesbuzz.biz/foo/", ".", "http://beesbuzz.biz/foo/");
 test("http://beesbuzz.biz/foo/", "./", "http://beesbuzz.biz/foo/");
 test("http://beesbuzz.biz/foo", ".", "http://beesbuzz.biz/");
