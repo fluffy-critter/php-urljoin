@@ -75,5 +75,9 @@ function urljoin($base, $rel) {
 		$ret .= '?' . $prel['query'];
 	}
 
+	if (isset($prel['fragment'])) {
+		$ret .= '#' . $prel['fragment'];
+	}
+
 	return $ret;
 }
