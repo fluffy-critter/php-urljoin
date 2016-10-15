@@ -5,11 +5,11 @@
 <body>
 <?php
 
-require_once '../src/join_url.php';
+require_once '../src/urljoin.php';
 
 
 function test($base, $url, $expected) {
-    $out = join_url($base, $url);
+    $out = urljoin($base, $url);
     echo '<div class="' . ($out == $expected ? 'pass' : 'fail') . '">';
     echo "<div>$base + $url => ";
     if ($out == $expected) {

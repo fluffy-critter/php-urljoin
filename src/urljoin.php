@@ -1,6 +1,6 @@
 <?php
 
-function join_url($base, $rel) {
+function urljoin($base, $rel) {
     $pbase = parse_url($base);
     $prel = parse_url($rel);
 
