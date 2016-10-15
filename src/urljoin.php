@@ -5,6 +5,7 @@
 A spiritual port of Python's urlparse.urljoin() function to PHP. Why this isn't in the standard library is anyone's guess.
 
 Author: fluffy, http://beesbuzz.biz/
+Latest version at: https://github.com/plaidfluff/php-urljoin
 
  */
 
