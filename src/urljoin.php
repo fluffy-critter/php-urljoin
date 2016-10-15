@@ -1,45 +1,74 @@
 <?php
 
 function urljoin($base, $rel) {
-    $pbase = parse_url($base);
-    $prel = parse_url($rel);
+	$pbase = parse_url($base);
+	$prel = parse_url($rel);
 
-    $merged = array_merge($pbase, $prel);
-    if ($prel['path'][0] != '/') {
-        $dir = preg_replace('@/[^/]*$@', '', $pbase['path']);
-        $merged['path'] = $dir . '/' . $prel['path'];
-    }
+	$merged = array_merge($pbase, $prel);
+	if ($prel['path'][0] != '/') {
+		// Relative path
+		$dir = preg_replace('@/[^/]*$@', '', $pbase['path']);
+		$merged['path'] = $dir . '/' . $prel['path'];
+	}
 
-    $pathParts = explode('/', $merged['path']);
-    array_shift($pathParts);
+	// Get the path components, and remove the initial empty one
+	$pathParts = explode('/', $merged['path']);
+	array_shift($pathParts);
 
-    $path = [];
-    foreach ($pathParts as $part) {
-        if ($part == '..') {
-            array_pop($path);
-        } else if ($part != '') {
-            array_push($path, $part);
-        }
-    }
-    $merged['path'] = '/' . implode('/', $path);
+	$path = [];
+	$prevPart = '';
+	foreach ($pathParts as $part) {
+		if ($part == '..') {
+			// Trim out the parent directory
+			array_pop($path);
+		} else if ($prevPart != '' || ($part != '.' && $part != '')) {
+			// Don't include empty or current-directory components
+			if ($part == '.') {
+				$part = '';
+			}
+			array_push($path, $part);
+		}
+		$prevPart = $part;
+	}
+	$merged['path'] = '/' . implode('/', $path);
 
-    $ret = '';
-    if (isset($merged['scheme'])) $ret .= $merged['scheme'] . ':';
-    if (isset($merged['host'])) $ret .= '//' . $merged['host'];
+	$ret = '';
+	if (isset($merged['scheme'])) {
+		$ret .= $merged['scheme'] . ':';
+	}
 
-    // TODO: support user/pass
+	if (isset($merged['host'])) {
+		$ret .= '//';
+	}
 
-    if (isset($prel['host'])) {
-        if (isset($prel['port'])) {
-            $ret .= ':' . $prel['port'];
-        }
-    } else if (isset($pbase['port'])) {
-        $ret .= ':' . $pbase['port'];
-    }
+	if (isset($prel['host'])) {
+		$hostSource = $prel;
+	} else {
+		$hostSource = $pbase;
+	}
 
-    if (isset($merged['path'])) $ret .= $merged['path'];
+	// username, password, and port are associated with the hostname, not merged
+	if (isset($hostSource['host'])) {
+		if (isset($hostSource['user'])) {
+			$ret .= $hostSource['user'];
+			if (isset($hostSource['pass'])) {
+				$ret .= ':' . $hostSource['pass'];
+			}
+			$ret .= '@';
+		}
+		$ret .= $hostSource['host'];
+		if (isset($hostSource['port'])) {
+			$ret .= ':' . $hostSource['port'];
+		}
+	}
 
-    if (isset($prel['query'])) $ret .= '?' . $prel['query'];
+	if (isset($merged['path'])) {
+		$ret .= $merged['path'];
+	}
 
-    return $ret;
+	if (isset($prel['query'])) {
+		$ret .= '?' . $prel['query'];
+	}
+
+	return $ret;
 }

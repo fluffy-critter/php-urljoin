@@ -7,27 +7,33 @@
 
 require_once '../src/urljoin.php';
 
-
 function test($base, $url, $expected) {
-    $out = urljoin($base, $url);
-    echo '<div class="' . ($out == $expected ? 'pass' : 'fail') . '">';
-    echo "<div>$base + $url => ";
-    if ($out == $expected) {
-        echo '<span class="pass">' . $out . '</span>';
-    } else {
-        echo '<span class="fail">' . $out . '</span> (expected: ' . $expected . ')';
-    }
-    echo '</div>';
+	$out = urljoin($base, $url);
+	echo "<div>$base + $url => ";
+	if ($out == $expected) {
+		echo '<span class="pass">' . $out . '</span>';
+	} else {
+		echo '<span class="fail">' . $out . '</span> (expected: ' . $expected . ')';
+	}
+	echo '</div>';
 }
 
+test("http://beesbuzz.biz/foo/bar", "test.jpg", "http://beesbuzz.biz/foo/test.jpg");
+test("http://beesbuzz.biz/foo/bar", "/test.jpg", "http://beesbuzz.biz/test.jpg");
+test("http://beesbuzz.biz/foo/bar/baz", "../test.jpg", "http://beesbuzz.biz/foo/test.jpg");
+test("http://beesbuzz.biz/foo/bar/baz/quux", "../../../../../test.jpg", "http://beesbuzz.biz/test.jpg");
+test("http://beesbuzz.biz/foo/", ".", "http://beesbuzz.biz/foo/");
+test("http://beesbuzz.biz/foo/", "./", "http://beesbuzz.biz/foo/");
+test("http://beesbuzz.biz/foo", ".", "http://beesbuzz.biz/");
+test("http://beesbuzz.biz/foo", "./", "http://beesbuzz.biz/");
+test("http://beesbuzz.biz/foo/bar", "//sockpuppet.us/test.jpg", "http://sockpuppet.us/test.jpg");
+test("https://beesbuzz.biz/foo/bar", "//sockpuppet.us/test.jpg", "https://sockpuppet.us/test.jpg");
+test("https://beesbuzz.biz/foo/bar.cgi?hello=goodbye", "moo.cgi?yes=no", "https://beesbuzz.biz/foo/moo.cgi?yes=no");
+test("http://fluffy:poopbutt@beesbuzz.biz/foo/bar", ".", "http://fluffy:poopbutt@beesbuzz.biz/foo/");
+test("http://fluffy:poopbutt@beesbuzz.biz/foo/bar", "/test/url", "http://fluffy:poopbutt@beesbuzz.biz/test/url");
+test("https://fluffy:poopbutt@beesbuzz.biz/foo/bar", "//sockpuppet.us/test/url", "https://sockpuppet.us/test/url");
+test("https://beesbuzz.biz:8000/foo/bar", "//sockpuppet.us/test/url", "https://sockpuppet.us/test/url");
+test("https://beesbuzz.biz:8000/foo/bar", "/test/url", "https://beesbuzz.biz:8000/test/url");
 
-test("http://example.com/foo/bar", "test.jpg", "http://example.com/foo/test.jpg");
-test("http://example.com/foo/bar", "/test.jpg", "http://example.com/test.jpg");
-test("http://example.com/foo/bar/baz", "../test.jpg", "http://example.com/foo/test.jpg");
-test("http://example.com/foo/bar/baz/quux", "../../../../../test.jpg", "http://example.com/test.jpg");
-test("http://example.com/foo/bar", "baz/foo///../bar", "http://example.com/foo/baz/bar");
-test("http://example.com/foo/bar", "//stackexchange.com/test.jpg", "http://stackexchange.com/test.jpg");
-test("https://example.com/foo/bar", "//stackexchange.com/test.jpg", "https://stackexchange.com/test.jpg");
-test("https://example.com/foo/bar.cgi?hello=goodbye", "moo.cgi?yes=no", "https://example.com/foo/moo.cgi?yes=no");
 ?>
 </body></html>
