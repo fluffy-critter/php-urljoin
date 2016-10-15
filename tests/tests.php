@@ -34,6 +34,8 @@ test("http://fluffy:poopbutt@beesbuzz.biz/foo/bar", "/test/url", "http://fluffy:
 test("https://fluffy:poopbutt@beesbuzz.biz/foo/bar", "//sockpuppet.us/test/url", "https://sockpuppet.us/test/url");
 test("https://beesbuzz.biz:8000/foo/bar", "//sockpuppet.us/test/url", "https://sockpuppet.us/test/url");
 test("https://beesbuzz.biz:8000/foo/bar", "/test/url", "https://beesbuzz.biz:8000/test/url");
+test("http://beesbuzz.biz/foo/?qwer=poiu", "bar", "http://beesbuzz.biz/foo/bar");
+test("http://beesbuzz.biz/foo/", "bar?qwer=poiu", "http://beesbuzz.biz/foo/bar?qwer=poiu");
 
 ?>
 </body></html>
