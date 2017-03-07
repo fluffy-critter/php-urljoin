@@ -1,0 +1,17 @@
+{
+    "name": "busybee/urljoin",
+    "description": "Library to correctly join relative and absolute URLs",
+    "type": "library",
+    "keywords": ["rel2abs", "relative2absolute", "urllib", "urljoin"],
+    "license": "Apache",
+    "authors": [
+        {
+            "name": "j 'fluffy' shagam",
+            "email": "fluffy@beesbuzz.biz",
+            "homepage": "http://beesbuzz.biz"
+        }
+    ],
+    "require": {
+        "php": ">=5.0.0"
+    }
+}
