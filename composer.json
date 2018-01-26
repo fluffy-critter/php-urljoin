@@ -2,7 +2,7 @@
     "name": "busybee/urljoin",
     "description": "Library to correctly join relative and absolute URLs",
     "type": "library",
-    "keywords": ["rel2abs", "relative2absolute", "urllib", "urljoin"],
+    "keywords": ["rel2abs", "relative2absolute", "urllib", "urljoin", "url-concatenation", "http"],
     "license": "Apache",
     "authors": [
         {
