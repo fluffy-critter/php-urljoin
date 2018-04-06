@@ -3,7 +3,7 @@
     "description": "Library to correctly join relative and absolute URLs",
     "type": "library",
     "keywords": ["rel2abs", "relative2absolute", "urllib", "urljoin", "url-concatenation", "http"],
-    "license": "Apache-2.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "j 'fluffy' shagam",
@@ -13,5 +13,8 @@
     ],
     "require": {
         "php": ">=5.0.0"
+    },
+    "autoload": {
+        "psr-4": { "": "src/" }
     }
 }
