@@ -73,5 +73,12 @@ test("/path/to/file", "other-file", "/path/to/other-file");
 test("http://beesbuzz.biz/test/foo#anchor", "bar", "http://beesbuzz.biz/test/bar");
 test("http://beesbuzz.biz/test/foo", "bar#anchor", "http://beesbuzz.biz/test/bar#anchor");
 
+# Mixing non-relative and relative url
+test("http://beesbuzz.biz/foo/bar", "javascript:void(0)", "javascript:void(0)");
+
+# Sanity checks
+test("http://beesbuzz.biz/foo/bar", false, "http://beesbuzz.biz/foo/bar");
+test(false, "http://beesbuzz.biz/foo/bar", "http://beesbuzz.biz/foo/bar");
+
 ?>
 </body></html>
