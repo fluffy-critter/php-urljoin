@@ -33,7 +33,7 @@ function urljoin($base, $rel) {
 	}
 
 	$merged = array_merge($pbase, $prel);
-	if ($prel['path'][0] != '/') {
+	if (array_key_exists('path', $prel) && array_key_exists('path', $pbase) && substr($prel['path'], 0, 1) != '/') {
 		// Relative path
 		$dir = preg_replace('@/[^/]*$@', '', $pbase['path']);
 		$merged['path'] = $dir . '/' . $prel['path'];
