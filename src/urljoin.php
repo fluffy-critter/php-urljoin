@@ -26,6 +26,10 @@ function urljoin($base, $rel) {
 	$pbase = parse_url($base);
 	$prel = parse_url($rel);
 
+	if (array_key_exists('path', $pbase) && $pbase['path'] === '/') {
+		unset($pbase['path']);
+	}
+
 	if (isset($prel['scheme'])) {
 		if ($prel['scheme'] != $pbase['scheme'] || in_array($prel['scheme'], $uses_relative) == false) {
 			return $rel;
