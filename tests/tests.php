@@ -14,23 +14,35 @@ define('DEBUG', true);
 
 ?><!DOCTYPE html>
 <html><head><title>tests</title><style>
-.pass { background: #7f7; }
-.fail { background: #f7f; }
+.pass { background-color: #7f7; }
+.fail { background-color: #f7f; }
+table { counter-reset: count; }
+tr td:nth-child(1):before { content: counters(count, "", decimal-leading-zero); counter-increment: count; }
+td { border: 1px solid black; border-collapse: collapse; }
+th { background-color: lightgray; }
+td { padding: 0 10px; }
 </style></head>
 <body>
+<table>
+	<tr>
+		<th>No.</th>
+		<th>Base</th>
+		<th>URL</th>
+		<th>Expected / Result</th>
+	</tr>
 <?php
 
 require_once '../src/urljoin.php';
 
 function test($base, $url, $expected) {
 	$out = urljoin($base, $url);
-	echo "<div>$base + $url => ";
+	echo "<tr><td /><td>$base</td><td>$url</td>";
 	if ($out == $expected) {
-		echo '<span class="pass">' . $out . '</span>';
+		echo '<td class="pass">' . $out . '</td>';
 	} else {
-		echo '<span class="fail">' . $out . '</span> (expected: ' . $expected . ')';
+		echo '<td class="fail">' . $out . ' (expected: ' . $expected . ')</td>';
 	}
-	echo '</div>';
+	echo '</tr>';
 }
 
 # A file in the same directory
@@ -96,4 +108,4 @@ test("http://beesbuzz.biz", "https://beesbuzz.biz", "https://beesbuzz.biz");
 test("https://beesbuzz.biz", "http://beesbuzz.biz", "http://beesbuzz.biz");
 
 ?>
-</body></html>
+</table></body></html>
