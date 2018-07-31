@@ -39,31 +39,33 @@ function urljoin($base, $rel) {
 		$merged['path'] = $dir . '/' . $prel['path'];
 	}
 
-	// Get the path components, and remove the initial empty one
-	$pathParts = explode('/', $merged['path']);
-	array_shift($pathParts);
+	if(array_key_exists('path', $merged)) {
+		// Get the path components, and remove the initial empty one
+		$pathParts = explode('/', $merged['path']);
+		array_shift($pathParts);
 
-	$path = [];
-	$prevPart = '';
-	foreach ($pathParts as $part) {
-		if ($part == '..' && count($path) > 0) {
-			// Cancel out the parent directory (if there's a parent to cancel)
-			$parent = array_pop($path);
-			// But if it was also a parent directory, leave it in
-			if ($parent == '..') {
-				array_push($path, $parent);
+		$path = [];
+		$prevPart = '';
+		foreach ($pathParts as $part) {
+			if ($part == '..' && count($path) > 0) {
+				// Cancel out the parent directory (if there's a parent to cancel)
+				$parent = array_pop($path);
+				// But if it was also a parent directory, leave it in
+				if ($parent == '..') {
+					array_push($path, $parent);
+					array_push($path, $part);
+				}
+			} else if ($prevPart != '' || ($part != '.' && $part != '')) {
+				// Don't include empty or current-directory components
+				if ($part == '.') {
+					$part = '';
+				}
 				array_push($path, $part);
 			}
-		} else if ($prevPart != '' || ($part != '.' && $part != '')) {
-			// Don't include empty or current-directory components
-			if ($part == '.') {
-				$part = '';
-			}
-			array_push($path, $part);
+			$prevPart = $part;
 		}
-		$prevPart = $part;
+		$merged['path'] = '/' . implode('/', $path);
 	}
-	$merged['path'] = '/' . implode('/', $path);
 
 	$ret = '';
 	if (isset($merged['scheme'])) {
