@@ -8,6 +8,10 @@ Author: fluffy, http://beesbuzz.biz/
 
  */
 
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+define('DEBUG', true);
+
 ?><!DOCTYPE html>
 <html><head><title>tests</title><style>
 .pass { background: #7f7; }
