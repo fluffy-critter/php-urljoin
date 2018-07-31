@@ -8,6 +8,10 @@ Author: fluffy, http://beesbuzz.biz/
 
  */
 
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+define('DEBUG', true);
+
 ?><!DOCTYPE html>
 <html><head><title>tests</title><style>
 .pass { background: #7f7; }
@@ -72,6 +76,7 @@ test("/path/to/file", "other-file", "/path/to/other-file");
 # Anchors are too
 test("http://beesbuzz.biz/test/foo#anchor", "bar", "http://beesbuzz.biz/test/bar");
 test("http://beesbuzz.biz/test/foo", "bar#anchor", "http://beesbuzz.biz/test/bar#anchor");
+test("http://beesbuzz.biz", "#anchor", "http://beesbuzz.biz#anchor");
 
 # Mixing non-relative and relative url
 test("http://beesbuzz.biz/foo/bar", "javascript:void(0)", "javascript:void(0)");
@@ -79,6 +84,16 @@ test("http://beesbuzz.biz/foo/bar", "javascript:void(0)", "javascript:void(0)");
 # Sanity checks
 test("http://beesbuzz.biz/foo/bar", false, "http://beesbuzz.biz/foo/bar");
 test(false, "http://beesbuzz.biz/foo/bar", "http://beesbuzz.biz/foo/bar");
+
+# URL already valid (various kinds), base may vary
+test("https://beesbuzz.biz", "https://beesbuzz.biz", "https://beesbuzz.biz");
+test("https://beesbuzz.biz/", "https://beesbuzz.biz", "https://beesbuzz.biz");
+test("https://beesbuzz.biz/", "https://beesbuzz.biz/", "https://beesbuzz.biz/");
+test("https://beesbuzz.biz/", "https://beesbuzz.biz/#test", "https://beesbuzz.biz/#test");
+
+# Same server, different scheme, URL already valid
+test("http://beesbuzz.biz", "https://beesbuzz.biz", "https://beesbuzz.biz");
+test("https://beesbuzz.biz", "http://beesbuzz.biz", "http://beesbuzz.biz");
 
 ?>
 </body></html>
