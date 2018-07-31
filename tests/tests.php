@@ -12,21 +12,30 @@ Author: fluffy, http://beesbuzz.biz/
 <html><head><title>tests</title><style>
 .pass { background: #7f7; }
 .fail { background: #f7f; }
+td { border: 1px solid black; border-collapse: collapse; }
+th { background-color: light-gray; }
+td { padding: 0 10px; }
 </style></head>
 <body>
+<table>
+	<tr>
+		<th>Base</th>
+		<th>URL</th>
+		<th>Expected / Result</th>
+	</tr>
 <?php
 
 require_once '../src/urljoin.php';
 
 function test($base, $url, $expected) {
 	$out = urljoin($base, $url);
-	echo "<div>$base + $url => ";
+	echo "<tr><td>$base</td><td>$url</td><td>";
 	if ($out == $expected) {
 		echo '<span class="pass">' . $out . '</span>';
 	} else {
 		echo '<span class="fail">' . $out . '</span> (expected: ' . $expected . ')';
 	}
-	echo '</div>';
+	echo '</td></tr>';
 }
 
 # A file in the same directory
@@ -81,4 +90,4 @@ test("http://beesbuzz.biz/foo/bar", false, "http://beesbuzz.biz/foo/bar");
 test(false, "http://beesbuzz.biz/foo/bar", "http://beesbuzz.biz/foo/bar");
 
 ?>
-</body></html>
+</table></body></html>
