@@ -47,6 +47,11 @@ function test($base, $url, $expected) {
 
 # A file in the same directory
 test("http://beesbuzz.biz/foo/bar", "test.jpg", "http://beesbuzz.biz/foo/test.jpg");
+# A file in a subdirectory
+test("http://beesbuzz.biz/foo/bar", "images/test.jpg", "http://beesbuzz.biz/foo/images/test.jpg");
+test("http://beesbuzz.biz/foo/bar", "./images/test.jpg", "http://beesbuzz.biz/foo/images/test.jpg");
+test("http://beesbuzz.biz/foo/bar/", "images/test.jpg", "http://beesbuzz.biz/foo/bar/images/test.jpg");
+test("http://beesbuzz.biz/foo/bar/", "./images/test.jpg", "http://beesbuzz.biz/foo/bar/images/test.jpg");
 # A file in the root directory
 test("http://beesbuzz.biz/foo/bar", "/test.jpg", "http://beesbuzz.biz/test.jpg");
 # A file in the parent directory
