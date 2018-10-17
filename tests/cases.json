@@ -1,0 +1,124 @@
+[
+	{
+		"_comment": "A file in the same directory",
+		"cases": [
+			["http://beesbuzz.biz/foo/bar", "test.jpg", "http://beesbuzz.biz/foo/test.jpg"]
+		]
+	},
+	{
+		"_comment": "A file in a subdirectory",
+		"cases": [
+			["http://beesbuzz.biz/foo/bar", "images/test.jpg", "http://beesbuzz.biz/foo/images/test.jpg"],
+			["http://beesbuzz.biz/foo/bar", "./images/test.jpg", "http://beesbuzz.biz/foo/images/test.jpg"],
+			["http://beesbuzz.biz/foo/bar/", "images/test.jpg", "http://beesbuzz.biz/foo/bar/images/test.jpg"],
+			["http://beesbuzz.biz/foo/bar/", "./images/test.jpg", "http://beesbuzz.biz/foo/bar/images/test.jpg"]
+		]
+	},
+	{
+		"_comment": "A file in the root directory",
+		"cases": [
+			["http://beesbuzz.biz/foo/bar", "/test.jpg", "http://beesbuzz.biz/test.jpg"]
+		]
+	},
+	{
+		"_comment": "A file in the parent directory",
+		"cases": [
+			["http://beesbuzz.biz/foo/bar/baz", "../test.jpg", "http://beesbuzz.biz/foo/test.jpg"]
+		]
+	},
+	{
+		"_comment": "A file more directories up than there are directories to escape",
+		"cases": [
+			["http://beesbuzz.biz/foo/bar/baz/quux", "../../../../../test.jpg", "http://beesbuzz.biz/../../test.jpg"]
+		]
+	},
+	{
+		"_comment": "The current directory itself",
+		"cases": [
+			["http://beesbuzz.biz/foo/", ".", "http://beesbuzz.biz/foo/"],
+			["http://beesbuzz.biz/foo/", "./", "http://beesbuzz.biz/foo/"],
+			["http://beesbuzz.biz/foo", ".", "http://beesbuzz.biz/"],
+			["http://beesbuzz.biz/foo", "./", "http://beesbuzz.biz/"]
+		]
+	},
+	{
+		"_comment": "Different server, same scheme",
+		"cases": [
+			["http://beesbuzz.biz/foo/bar", "//sockpuppet.us/test.jpg", "http://sockpuppet.us/test.jpg"],
+			["https://beesbuzz.biz/foo/bar", "//sockpuppet.us/test.jpg", "https://sockpuppet.us/test.jpg"]
+		]
+	},
+	{
+		"_comment": "Ensure queries work right",
+		"cases": [
+			["https://beesbuzz.biz/foo/bar.cgi?hello=goodbye", "moo.cgi?yes=no", "https://beesbuzz.biz/foo/moo.cgi?yes=no"],
+			["http://beesbuzz.biz/foo/?qwer=poiu", "bar", "http://beesbuzz.biz/foo/bar"],
+			["http://beesbuzz.biz/foo/", "bar?qwer=poiu", "http://beesbuzz.biz/foo/bar?qwer=poiu"]
+		]
+	},
+	{
+		"_comment": "Users and passwords should transfer for relative links",
+		"cases": [
+			["http://fluffy:poopbutt@beesbuzz.biz/foo/bar", ".", "http://fluffy:poopbutt@beesbuzz.biz/foo/"],
+			["http://fluffy:poopbutt@beesbuzz.biz/foo/bar", "/test/url", "http://fluffy:poopbutt@beesbuzz.biz/test/url"],
+			["http://spambot@beesbuzz.biz/foo/bar", "/test/url", "http://spambot@beesbuzz.biz/test/url"]
+		]
+	},
+	{
+		"_comment": "But shouldn't transfer to other servers",
+		"cases": [
+			["https://fluffy:poopbutt@beesbuzz.biz/foo/bar", "//sockpuppet.us/test/url", "https://sockpuppet.us/test/url"]
+		]
+	},
+	{
+		"_comment": "Port specifiers",
+		"cases": [
+			["https://beesbuzz.biz:8000/foo/bar", "//sockpuppet.us/test/url", "https://sockpuppet.us/test/url"],
+			["https://beesbuzz.biz:8000/foo/bar", "/test/url", "https://beesbuzz.biz:8000/test/url"]
+		]
+	},
+	{
+		"_comment": "File paths are fiddly",
+		"cases": [
+			["file:///path/to/file", "other-file", "file:///path/to/other-file"],
+			["/path/to/file", "other-file", "/path/to/other-file"]
+		]
+	},
+	{
+		"_comment": "Anchors are too",
+		"cases": [
+			["http://beesbuzz.biz/test/foo#anchor", "bar", "http://beesbuzz.biz/test/bar"],
+			["http://beesbuzz.biz/test/foo", "bar#anchor", "http://beesbuzz.biz/test/bar#anchor"],
+			["http://beesbuzz.biz", "#anchor", "http://beesbuzz.biz#anchor"]
+		]
+	},
+	{
+		"_comment": "Mixing non-relative and relative url",
+		"cases": [
+			["http://beesbuzz.biz/foo/bar", "javascript:void(0)", "javascript:void(0)"]
+		]
+	},
+	{
+		"_comment": "Sanity checks",
+		"cases": [
+			["http://beesbuzz.biz/foo/bar", false, "http://beesbuzz.biz/foo/bar"],
+			[false, "http://beesbuzz.biz/foo/bar", "http://beesbuzz.biz/foo/bar"]
+		]
+	},
+	{
+		"_comment": "URL already valid (various kinds), base may vary",
+		"cases": [
+			["https://beesbuzz.biz", "https://beesbuzz.biz", "https://beesbuzz.biz"],
+			["https://beesbuzz.biz/", "https://beesbuzz.biz", "https://beesbuzz.biz"],
+			["https://beesbuzz.biz/", "https://beesbuzz.biz/", "https://beesbuzz.biz/"],
+			["https://beesbuzz.biz/", "https://beesbuzz.biz/#test", "https://beesbuzz.biz/#test"]
+		]
+	},
+	{
+		"_comment": "Same server, different scheme, URL already valid",
+		"cases": [
+			["http://beesbuzz.biz", "https://beesbuzz.biz", "https://beesbuzz.biz"],
+			["https://beesbuzz.biz", "http://beesbuzz.biz", "http://beesbuzz.biz"]
+		]
+	}
+]
