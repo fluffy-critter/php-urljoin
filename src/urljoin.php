@@ -18,13 +18,34 @@ function urljoin($base, $rel) {
 		return $base;
 	}
 
+	$is_valid_scheme_fn = function ($scheme) {
+		$valid_scheme_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-.';
+
+		for($i = 0; $i<strlen($scheme); $i++) {
+			if (strpos($valid_scheme_chars, $scheme[$i]) === false) {
+				return false;
+			}
+		}
+
+		return true;
+	};
+
 	$uses_relative = array('', 'ftp', 'http', 'gopher', 'nntp', 'imap',
 		'wais', 'file', 'https', 'shttp', 'mms',
 		'prospero', 'rtsp', 'rtspu', 'sftp',
 		'svn', 'svn+ssh', 'ws', 'wss');
 
+	$scheme = '';
+	if (strpos($rel, ':') !== false) {
+		$scheme = explode(':', $rel)[0];
+	}
+
 	$pbase = parse_url($base);
-	$prel = parse_url($rel);
+	if ($scheme && false === $is_valid_scheme_fn($scheme)) {
+		$prel = array('path' => $rel);
+	} else {
+		$prel = parse_url($rel);
+	}
 
 	if ($prel === false || preg_match('/[^a-zA-Z0-9+\-.].*:/', $rel)) {
 		/*
