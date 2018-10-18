@@ -26,11 +26,11 @@ function urljoin($base, $rel) {
 	$pbase = parse_url($base);
 	$prel = parse_url($rel);
 
-	if ($prel === false || preg_match('/[^a-zA-Z0-9+\-.].*:/', $rel)) {
+	if ($prel === false || preg_match('/^[a-z0-9\-.]*[^a-z0-9\-.:][a-z0-9\-.]*:/i', $rel)) {
 		/*
 			Either parse_url couldn't parse this, or the original URL
-			fragment had invalid characters in front of the : and parse_url can
-			get confused by that
+			fragment had an invalid scheme character before the first :,
+			which can confuse parse_url
 		*/
 		$prel = array('path' => $rel);
 	}

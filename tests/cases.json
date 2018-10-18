@@ -131,7 +131,9 @@
 			["https://beesbuzz.biz/user/", "posts/1907564412639039:0", "https://beesbuzz.biz/user/posts/1907564412639039:0"],
 			["https://beesbuzz.biz/user/", "posts/1907564412639039:456", "https://beesbuzz.biz/user/posts/1907564412639039:456"],
 			["https://beesbuzz.biz/user/", "posts/1907564412639039:7", "https://beesbuzz.biz/user/posts/1907564412639039:7"],
-			["https://beesbuzz.biz/user/", "posts/1907564412639039:def", "https://beesbuzz.biz/user/posts/1907564412639039:def"]
+			["https://beesbuzz.biz/user/", "posts/1907564412639039:def", "https://beesbuzz.biz/user/posts/1907564412639039:def"],
+			["https://beesbuzz.biz/user/", "http://example.com/posts/1907564412639039:456", "http://example.com/posts/1907564412639039:456"],
+			["https://beesbuzz.biz/user/", "http://example.com:9090/posts/1907564412639039:456", "http://example.com:9090/posts/1907564412639039:456"]
 		]
 	}
 ]
