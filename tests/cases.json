@@ -120,5 +120,18 @@
 			["http://beesbuzz.biz", "https://beesbuzz.biz", "https://beesbuzz.biz"],
 			["https://beesbuzz.biz", "http://beesbuzz.biz", "http://beesbuzz.biz"]
 		]
+	},
+	{
+		"_comment": "Colons in path",
+		"cases": [
+			["https://beesbuzz.biz", "/user/posts/1907564412639039:0", "https://beesbuzz.biz/user/posts/1907564412639039:0"],
+			["https://beesbuzz.biz", "/user/posts/1907564412639039:123", "https://beesbuzz.biz/user/posts/1907564412639039:123"],
+			["https://beesbuzz.biz", "/user/posts/1907564412639039:8", "https://beesbuzz.biz/user/posts/1907564412639039:8"],
+			["https://beesbuzz.biz", "/user/posts/1907564412639039:abc", "https://beesbuzz.biz/user/posts/1907564412639039:abc"],
+			["https://beesbuzz.biz/user/", "posts/1907564412639039:0", "https://beesbuzz.biz/user/posts/1907564412639039:0"],
+			["https://beesbuzz.biz/user/", "posts/1907564412639039:456", "https://beesbuzz.biz/user/posts/1907564412639039:456"],
+			["https://beesbuzz.biz/user/", "posts/1907564412639039:7", "https://beesbuzz.biz/user/posts/1907564412639039:7"],
+			["https://beesbuzz.biz/user/", "posts/1907564412639039:def", "https://beesbuzz.biz/user/posts/1907564412639039:def"]
+		]
 	}
 ]
