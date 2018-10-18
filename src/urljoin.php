@@ -26,6 +26,15 @@ function urljoin($base, $rel) {
 	$pbase = parse_url($base);
 	$prel = parse_url($rel);
 
+	if ($prel === false || preg_match('/[^a-zA-Z0-9+\-.].*:/', $rel)) {
+		/*
+			Either parse_url couldn't parse this, or the original URL
+			fragment had invalid characters in front of the : and parse_url can
+			get confused by that
+		*/
+		$prel = array('path' => $rel);
+	}
+
 	if (array_key_exists('path', $pbase) && $pbase['path'] === '/') {
 		unset($pbase['path']);
 	}
@@ -37,8 +46,8 @@ function urljoin($base, $rel) {
 	}
 
 	$merged = array_merge($pbase, $prel);
-	
-	// Handle relative paths: 
+
+	// Handle relative paths:
 	//   'path/to/file.ext'
 	// './path/to/file.ext'
 	if (array_key_exists('path', $prel) && substr($prel['path'], 0, 1) != '/') {
