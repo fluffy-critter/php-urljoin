@@ -3,6 +3,11 @@ A PHP library function for joining a base URL and a potentially-relative target 
 
 Why isn't this in the PHP standard library? WHO KNOWS.
 
+Installation:
+
+* Direct install: just pull `src/urljoin.php` into your project
+* [Composer](https://packagist.org/packages/busybee/urljoin): `composer require busybee/urljoin`
+
 usage:
 
     urljoin($base_url, $other_url);
