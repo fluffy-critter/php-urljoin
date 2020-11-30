@@ -2,79 +2,80 @@
 	{
 		"_comment": "A file in the same directory",
 		"cases": [
-			["http://beesbuzz.biz/foo/bar", "test.jpg", "http://beesbuzz.biz/foo/test.jpg"]
+			["http://example.com/foo/bar", "test.jpg", "http://example.com/foo/test.jpg"]
 		]
 	},
 	{
 		"_comment": "A file in a subdirectory",
 		"cases": [
-			["http://beesbuzz.biz/foo/bar", "images/test.jpg", "http://beesbuzz.biz/foo/images/test.jpg"],
-			["http://beesbuzz.biz/foo/bar", "./images/test.jpg", "http://beesbuzz.biz/foo/images/test.jpg"],
-			["http://beesbuzz.biz/foo/bar/", "images/test.jpg", "http://beesbuzz.biz/foo/bar/images/test.jpg"],
-			["http://beesbuzz.biz/foo/bar/", "./images/test.jpg", "http://beesbuzz.biz/foo/bar/images/test.jpg"]
+			["http://example.com/foo/bar", "images/test.jpg", "http://example.com/foo/images/test.jpg"],
+			["http://example.com/foo/bar", "./images/test.jpg", "http://example.com/foo/images/test.jpg"],
+			["http://example.com/foo/bar/", "images/test.jpg", "http://example.com/foo/bar/images/test.jpg"],
+			["http://example.com/foo/bar/", "./images/test.jpg", "http://example.com/foo/bar/images/test.jpg"]
 		]
 	},
 	{
 		"_comment": "A file in the root directory",
 		"cases": [
-			["http://beesbuzz.biz/foo/bar", "/test.jpg", "http://beesbuzz.biz/test.jpg"]
+			["http://example.com/foo/bar", "/test.jpg", "http://example.com/test.jpg"]
 		]
 	},
 	{
 		"_comment": "A file in the parent directory",
 		"cases": [
-			["http://beesbuzz.biz/foo/bar/baz", "../test.jpg", "http://beesbuzz.biz/foo/test.jpg"]
+			["http://example.com/foo/bar/baz", "../test.jpg", "http://example.com/foo/test.jpg"]
 		]
 	},
 	{
 		"_comment": "A file more directories up than there are directories to escape",
 		"cases": [
-			["http://beesbuzz.biz/foo/bar/baz/quux", "../../../../../test.jpg", "http://beesbuzz.biz/../../test.jpg"]
+			["http://example.com/foo/bar/baz/quux", "../../../../../test.jpg", "http://example.com/../../test.jpg"]
 		]
 	},
 	{
 		"_comment": "The current directory itself",
 		"cases": [
-			["http://beesbuzz.biz/foo/", ".", "http://beesbuzz.biz/foo/"],
-			["http://beesbuzz.biz/foo/", "./", "http://beesbuzz.biz/foo/"],
-			["http://beesbuzz.biz/foo", ".", "http://beesbuzz.biz/"],
-			["http://beesbuzz.biz/foo", "./", "http://beesbuzz.biz/"]
+			["http://example.com/foo/", ".", "http://example.com/foo/"],
+			["http://example.com/foo/", "./", "http://example.com/foo/"],
+			["http://example.com/foo", ".", "http://example.com/"],
+			["http://example.com/foo", "./", "http://example.com/"]
 		]
 	},
 	{
 		"_comment": "Different server, same scheme",
 		"cases": [
-			["http://beesbuzz.biz/foo/bar", "//sockpuppet.us/test.jpg", "http://sockpuppet.us/test.jpg"],
-			["https://beesbuzz.biz/foo/bar", "//sockpuppet.us/test.jpg", "https://sockpuppet.us/test.jpg"]
+			["http://example.com/foo/bar", "//other.example/test.jpg", "http://other.example/test.jpg"],
+			["https://example.com/foo/bar", "//other.example/test.jpg", "https://other.example/test.jpg"]
 		]
 	},
 	{
 		"_comment": "Ensure queries work right",
 		"cases": [
-			["https://beesbuzz.biz/foo/bar.cgi?hello=goodbye", "moo.cgi?yes=no", "https://beesbuzz.biz/foo/moo.cgi?yes=no"],
-			["http://beesbuzz.biz/foo/?qwer=poiu", "bar", "http://beesbuzz.biz/foo/bar"],
-			["http://beesbuzz.biz/foo/", "bar?qwer=poiu", "http://beesbuzz.biz/foo/bar?qwer=poiu"]
+			["https://example.com/foo/bar.cgi?hello=goodbye", "moo.cgi?yes=no", "https://example.com/foo/moo.cgi?yes=no"],
+			["http://example.com/foo/?qwer=poiu", "bar", "http://example.com/foo/bar"],
+			["http://example.com/foo/", "bar?qwer=poiu", "http://example.com/foo/bar?qwer=poiu"],
+			["http://example.com/foo/", "?qwer=poiu", "http://example.com/foo/?qwer=poiu"]
 		]
 	},
 	{
 		"_comment": "Users and passwords should transfer for relative links",
 		"cases": [
-			["http://fluffy:poopbutt@beesbuzz.biz/foo/bar", ".", "http://fluffy:poopbutt@beesbuzz.biz/foo/"],
-			["http://fluffy:poopbutt@beesbuzz.biz/foo/bar", "/test/url", "http://fluffy:poopbutt@beesbuzz.biz/test/url"],
-			["http://spambot@beesbuzz.biz/foo/bar", "/test/url", "http://spambot@beesbuzz.biz/test/url"]
+			["http://alicebob:password123@example.com/foo/bar", ".", "http://alicebob:password123@example.com/foo/"],
+			["http://alicebob:password123@example.com/foo/bar", "/test/url", "http://alicebob:password123@example.com/test/url"],
+			["http://spambot@example.com/foo/bar", "/test/url", "http://spambot@example.com/test/url"]
 		]
 	},
 	{
 		"_comment": "But shouldn't transfer to other servers",
 		"cases": [
-			["https://fluffy:poopbutt@beesbuzz.biz/foo/bar", "//sockpuppet.us/test/url", "https://sockpuppet.us/test/url"]
+			["https://alicebob:password123@example.com/foo/bar", "//other.example/test/url", "https://other.example/test/url"]
 		]
 	},
 	{
 		"_comment": "Port specifiers",
 		"cases": [
-			["https://beesbuzz.biz:8000/foo/bar", "//sockpuppet.us/test/url", "https://sockpuppet.us/test/url"],
-			["https://beesbuzz.biz:8000/foo/bar", "/test/url", "https://beesbuzz.biz:8000/test/url"]
+			["https://example.com:8000/foo/bar", "//other.example/test/url", "https://other.example/test/url"],
+			["https://example.com:8000/foo/bar", "/test/url", "https://example.com:8000/test/url"]
 		]
 	},
 	{
@@ -87,53 +88,53 @@
 	{
 		"_comment": "Anchors are too",
 		"cases": [
-			["http://beesbuzz.biz/test/foo#anchor", "bar", "http://beesbuzz.biz/test/bar"],
-			["http://beesbuzz.biz/test/foo", "bar#anchor", "http://beesbuzz.biz/test/bar#anchor"],
-			["http://beesbuzz.biz", "#anchor", "http://beesbuzz.biz#anchor"]
+			["http://example.com/test/foo#anchor", "bar", "http://example.com/test/bar"],
+			["http://example.com/test/foo", "bar#anchor", "http://example.com/test/bar#anchor"],
+			["http://example.com", "#anchor", "http://example.com#anchor"]
 		]
 	},
 	{
 		"_comment": "Mixing non-relative and relative url",
 		"cases": [
-			["http://beesbuzz.biz/foo/bar", "javascript:void(0)", "javascript:void(0)"]
+			["http://example.com/foo/bar", "javascript:void(0)", "javascript:void(0)"]
 		]
 	},
 	{
 		"_comment": "Sanity checks",
 		"cases": [
-			["http://beesbuzz.biz/foo/bar", false, "http://beesbuzz.biz/foo/bar"],
-			[false, "http://beesbuzz.biz/foo/bar", "http://beesbuzz.biz/foo/bar"]
+			["http://example.com/foo/bar", false, "http://example.com/foo/bar"],
+			[false, "http://example.com/foo/bar", "http://example.com/foo/bar"]
 		]
 	},
 	{
 		"_comment": "URL already valid (various kinds), base may vary",
 		"cases": [
-			["https://beesbuzz.biz", "https://beesbuzz.biz", "https://beesbuzz.biz"],
-			["https://beesbuzz.biz/", "https://beesbuzz.biz", "https://beesbuzz.biz"],
-			["https://beesbuzz.biz/", "https://beesbuzz.biz/", "https://beesbuzz.biz/"],
-			["https://beesbuzz.biz/", "https://beesbuzz.biz/#test", "https://beesbuzz.biz/#test"]
+			["https://example.com", "https://example.com", "https://example.com"],
+			["https://example.com/", "https://example.com", "https://example.com"],
+			["https://example.com/", "https://example.com/", "https://example.com/"],
+			["https://example.com/", "https://example.com/#test", "https://example.com/#test"]
 		]
 	},
 	{
 		"_comment": "Same server, different scheme, URL already valid",
 		"cases": [
-			["http://beesbuzz.biz", "https://beesbuzz.biz", "https://beesbuzz.biz"],
-			["https://beesbuzz.biz", "http://beesbuzz.biz", "http://beesbuzz.biz"]
+			["http://example.com", "https://example.com", "https://example.com"],
+			["https://example.com", "http://example.com", "http://example.com"]
 		]
 	},
 	{
 		"_comment": "Colons in path",
 		"cases": [
-			["https://beesbuzz.biz", "/user/posts/1907564412639039:0", "https://beesbuzz.biz/user/posts/1907564412639039:0"],
-			["https://beesbuzz.biz", "/user/posts/1907564412639039:123", "https://beesbuzz.biz/user/posts/1907564412639039:123"],
-			["https://beesbuzz.biz", "/user/posts/1907564412639039:8", "https://beesbuzz.biz/user/posts/1907564412639039:8"],
-			["https://beesbuzz.biz", "/user/posts/1907564412639039:abc", "https://beesbuzz.biz/user/posts/1907564412639039:abc"],
-			["https://beesbuzz.biz/user/", "posts/1907564412639039:0", "https://beesbuzz.biz/user/posts/1907564412639039:0"],
-			["https://beesbuzz.biz/user/", "posts/1907564412639039:456", "https://beesbuzz.biz/user/posts/1907564412639039:456"],
-			["https://beesbuzz.biz/user/", "posts/1907564412639039:7", "https://beesbuzz.biz/user/posts/1907564412639039:7"],
-			["https://beesbuzz.biz/user/", "posts/1907564412639039:def", "https://beesbuzz.biz/user/posts/1907564412639039:def"],
-			["https://beesbuzz.biz/user/", "http://example.com/posts/1907564412639039:456", "http://example.com/posts/1907564412639039:456"],
-			["https://beesbuzz.biz/user/", "http://example.com:9090/posts/1907564412639039:456", "http://example.com:9090/posts/1907564412639039:456"]
+			["https://example.com", "/user/posts/1907564412639039:0", "https://example.com/user/posts/1907564412639039:0"],
+			["https://example.com", "/user/posts/1907564412639039:123", "https://example.com/user/posts/1907564412639039:123"],
+			["https://example.com", "/user/posts/1907564412639039:8", "https://example.com/user/posts/1907564412639039:8"],
+			["https://example.com", "/user/posts/1907564412639039:abc", "https://example.com/user/posts/1907564412639039:abc"],
+			["https://example.com/user/", "posts/1907564412639039:0", "https://example.com/user/posts/1907564412639039:0"],
+			["https://example.com/user/", "posts/1907564412639039:456", "https://example.com/user/posts/1907564412639039:456"],
+			["https://example.com/user/", "posts/1907564412639039:7", "https://example.com/user/posts/1907564412639039:7"],
+			["https://example.com/user/", "posts/1907564412639039:def", "https://example.com/user/posts/1907564412639039:def"],
+			["https://example.com/user/", "http://example.com/posts/1907564412639039:456", "http://example.com/posts/1907564412639039:456"],
+			["https://example.com/user/", "http://example.com:9090/posts/1907564412639039:456", "http://example.com:9090/posts/1907564412639039:456"]
 		]
 	}
 ]
