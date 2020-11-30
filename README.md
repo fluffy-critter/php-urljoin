@@ -12,9 +12,11 @@ usage:
 
     urljoin($base_url, $other_url);
 
-See tests.php for test suite, as well as expected inputs and outputs. (Doing this correctly is *way* more complicated thing than you'd
-think!) This implementation strives for accuracy and, in cases of ambiguity (such as `../` stack underflow and empty path components),
-defers to Python's standard library behavior (as implemented by `urlparse.urljoin`).
+See tests.php for test suite, as well as expected inputs and outputs. (Doing
+this correctly is *way* more complicated thing than you'd think!) This
+implementation strives for accuracy and, in cases of ambiguity (such as `../`
+stack underflow and empty path components), defers to Python's standard library
+behavior (as implemented by `urlparse.urljoin`).
 
 Other things that you might know this as:
 
